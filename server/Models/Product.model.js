@@ -26,6 +26,9 @@ const ProductSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  public_id: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Product", ProductSchema);

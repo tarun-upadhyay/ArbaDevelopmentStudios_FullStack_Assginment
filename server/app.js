@@ -3,11 +3,13 @@ const express = require("express");
 require("express-async-errors");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-
+const fileUpload = require("express-fileupload");
 const connect = require("./DB/db.config");
 const cors = require("cors");
 const helmet = require("helmet");
 const authRouter = require("./Routes/authRoute");
+const categoryRouter = require("./Routes/categoryRoute");
+const productRouter = require("./Routes/productRoute");
 
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
@@ -18,6 +20,7 @@ app.use(helmet());
 app.options("*", cors());
 
 app.use(express.json());
+app.use(fileUpload({ useTempFiles: true }));
 
 app.use(morgan("tiny"));
 
@@ -43,6 +46,9 @@ app.get("/", (req, res) => {
 // });
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/product", productRouter);
+
 app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
 
