@@ -9,8 +9,8 @@ const authenticateUser = async (req, res, next) => {
     throw new CustomError.UnauthenticatedError("Authentication Invaild");
 
   try {
-    const { name, userId, role } = isTokenValid({ token });
-    req.user = { name, userId, role };
+    const { fullName, userId } = isTokenValid({ token });
+    req.user = { fullName, userId};
 
     next();
   } catch (error) {

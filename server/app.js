@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const connect = require("./DB/db.config");
 const cors = require("cors");
 const helmet = require("helmet");
-
+const authRouter = require("./Routes/authRoute");
 
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
@@ -26,6 +26,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 app.get("/", (req, res) => {
   return res.send("<h2>E commerce API</h2>");
 });
+
 // app.get("/session", (req, res) => {
 //   let token = req.signedCookies.authToken;
 //   if (token) {
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 //   }
 // });
 
+app.use("/api/v1/auth", authRouter);
 app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
 
