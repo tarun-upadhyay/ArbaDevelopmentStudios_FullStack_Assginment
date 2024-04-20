@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export const emailLogin = Yup.object({
   password: Yup.string().min(6).required("Please enter your password"),
-  email: Yup.string().email().required("Please enter your email"),
+  userName: Yup.string().min(3).required("Please enter your Username"),
 });
 
 export const emailSignup = Yup.object({

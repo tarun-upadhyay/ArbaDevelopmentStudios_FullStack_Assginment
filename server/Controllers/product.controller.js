@@ -106,8 +106,8 @@ const updateImageProduct = async (req, res) => {
 const getProducts = async (req, res) => {
   const { title, price, category } = req.query;
   let queryObject = {};
-  if (title) queryObject.title = { $regex: title, $options: "i" };
-  if (category) queryObject.category = category;
+  if (title) queryObject.title = new RegExp(title, "i");
+  if (category) queryObject.category = new RegExp(category, "i");
 
   let sortOption = {};
   if (price === "asc") {
@@ -116,7 +116,9 @@ const getProducts = async (req, res) => {
     sortOption.price = -1; // Descending order
   }
 
-  let products = await ProductModel.find(queryObject).sort(sortOption);
+  let products = await ProductModel.find(queryObject)
+    .populate("category", "name")
+    .sort(sortOption);
   return res.status(StatusCodes.ACCEPTED).json(products);
 };
 const deleteProduct = async (req, res) => {

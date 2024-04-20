@@ -13,6 +13,9 @@ const productRouter = require("./Routes/productRoute");
 
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
+const { isTokenValid } = require("./Utils");
+const { StatusCodes } = require("http-status-codes");
+const { CustomAPIError } = require("./errors");
 
 const app = express();
 
@@ -30,20 +33,22 @@ app.get("/", (req, res) => {
   return res.send("<h2>E commerce API</h2>");
 });
 
-// app.get("/session", (req, res) => {
-//   let token = req.signedCookies.authToken;
-//   if (token) {
-//     try {
-//       const { name, userId, role } = isTokenValid({ token });
-//       return res.status(StatusCodes.OK).json({ token, name, role });
-//     } catch (error) {
-//       console.log(error);
-//       throw new CustomError.UnauthenticatedError("Authentication Invaild");
-//     }
-//   } else {
-//     res.status(StatusCodes.BAD_REQUEST).json({ msg: "Not logined" });
-//   }
-// });
+app.get("/session", (req, res) => {
+  let token = req.signedCookies.authToken;
+  if (token) {
+    try {
+      const { fullName, userId, avatar, email } = isTokenValid({ token });
+      return res
+        .status(StatusCodes.OK)
+        .json({ token, fullName, userId, email, avatar });
+    } catch (error) {
+      console.log(error);
+      throw new CustomAPIError.UnauthenticatedError("Authentication Invaild");
+    }
+  } else {
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: "Not logined" });
+  }
+});
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/category", categoryRouter);

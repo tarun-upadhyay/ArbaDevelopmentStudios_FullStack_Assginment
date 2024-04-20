@@ -1,117 +1,131 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { emailLogin } from "../../validator/userDetails";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 import AuthUiComponent from "../../ui-components/AuthUiComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../Redux/Auth/action";
+import LoadingIndicator from "../../ui-components/LoadingIndicator";
 interface InitialValues {
-  email: string;
+  userName: string;
   password: string;
 }
 const initalState: InitialValues = {
-  email: "",
+  userName: "",
   password: "",
 };
 const Login = () => {
+  const dispatch = useDispatch();
+  const storeContext = useSelector((store: any) => store.AuthReducer);
   const [error, setErrors] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const toast = useToast();
   async function handleSubmit(values: any) {
     setErrors(false);
-    setLoading(true);
-
-    setLoading(false);
+    try {
+      const user = await dispatch<any>(login(values as any));
+    } catch (err) {
+      toast({
+        title: `${err}`,
+        status: "error",
+        isClosable: true,
+      });
+      console.log(err);
+    }
   }
   const formik = useFormik({
     initialValues: initalState,
     validationSchema: emailLogin,
     onSubmit: handleSubmit,
   });
+
+  if (storeContext.isAuth) return <Navigate to="/" />;
   return (
     <AuthUiComponent>
-      <form action="">
-        <form onSubmit={formik.handleSubmit} className="mt-8">
-          {error && error ? (
-            <span className="text-red-600 pl-2 text-sm font-extrabold">
-              Please check Email and Password!!
-            </span>
-          ) : null}
-          <div className="space-y-5 font-baijam font-bold">
-            <div>
-              <label
-                htmlFor=""
-                className="text-base word-spacing-2 text-gray-900"
-              >
-                {" "}
-                Email address{" "}
-              </label>
-              <div className="mt-2 ">
-                <input
-                  className="flex h-10 w-full rounded-md border border-gray-600 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
-                  onBlur={formik.handleBlur}
-                ></input>
-                {formik.errors.email && formik.touched.email && (
-                  <span className="text-red-600 pl-2 text-sm">
-                    {formik.errors.email}
-                  </span>
-                )}
-              </div>
+      <form onSubmit={formik.handleSubmit} className="mt-8">
+        {storeContext.isLoading && (
+          <div className="relative bottom-24">
+            <LoadingIndicator />
+          </div>
+        )}
+        {error && error ? (
+          <span className="text-red-600 pl-2 text-sm font-extrabold">
+            Please check Email and Password!!
+          </span>
+        ) : null}
+        <div className="space-y-5">
+          <div>
+            <div className="mt-2 ">
+              <input
+                className="flex h-10 w-full outline-none border-b-2 border-[#2ab2ce] bg-transparent text-lg placeholder:text-gray-400   disabled:cursor-not-allowed disabled:opacity-50"
+                type="text"
+                placeholder="Username"
+                name="userName"
+                onChange={formik.handleChange}
+                value={formik.values.userName}
+                onBlur={formik.handleBlur}
+              ></input>
+              {formik.errors.userName && formik.touched.userName && (
+                <span className="text-red-600 pl-2 text-sm">
+                  {formik.errors.userName}
+                </span>
+              )}
             </div>
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor=""
-                  className="text-base word-spacing-2 text-gray-900"
-                >
-                  {" "}
-                  Password{" "}
-                </label>
-                <p className="text-sm font-semibold text-black hover:underline">
-                  {" "}
-                  Forgot password?{" "}
-                </p>
-              </div>
-              <div className="mt-2">
+          </div>
+          <div>
+            <div className="mt-2">
+              <label htmlFor="" className="relative flex">
                 <input
-                  className="flex h-10 w-full rounded-md border border-gray-600 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                  type="password"
+                  className="flex h-10 w-full outline-none border-b-2 border-[#2ab2ce] bg-transparent text-lg placeholder:text-gray-400   disabled:cursor-not-allowed disabled:opacity-50"
+                  type={`${passwordVisible ? "text" : "password"}`}
                   placeholder="Password"
                   name="password"
                   onChange={formik.handleChange}
                   value={formik.values.password}
                   onBlur={formik.handleBlur}
                 ></input>
-                {formik.errors.password && formik.touched.password && (
-                  <span className="text-red-600 pl-2 text-sm">
-                    {formik.errors.password}
-                  </span>
+
+                {passwordVisible ? (
+                  <FaEye
+                    className="absolute right-5 h-6 w-6 cursor-pointer text-[#2ab]"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  />
+                ) : (
+                  <FaEyeSlash
+                    className="absolute right-5 h-6 w-6 cursor-pointer text-[#2ab]"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  />
                 )}
-              </div>
+              </label>
+              {formik.errors.password && formik.touched.password && (
+                <span className="text-red-600 pl-2 text-sm">
+                  {formik.errors.password}
+                </span>
+              )}
             </div>
-            <div>
-              <button
-                type="submit"
-                className={`inline-flex w-full items-center justify-center rounded-3xl  px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80  ${
-                  loading
-                    ? "bg-gray-600 cursor-not-allowed opacity-50"
-                    : "bg-[#7BC]"
-                }`}
-                disabled={loading}
-              >
-                {loading ? "Processing.." : "Login"}
-              </button>
-            </div>
-            <p className="pl-1 font-normal mt-2">
-              Don't have an account?
-              <Link to={"/signup"}>
-                <span className="text-[#7BC] pl-2">Sign up</span>
-              </Link>
-            </p>
           </div>
-        </form>
+          <div>
+            <button
+              type="submit"
+              className={`inline-flex w-full items-center justify-center rounded-3xl my-5  px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80  ${
+                storeContext.isLoading
+                  ? "bg-gray-600 cursor-not-allowed opacity-50"
+                  : "bg-[#7BC]"
+              }`}
+              disabled={storeContext.isLoading}
+            >
+              {storeContext.isLoading ? "Processing.." : "Login"}
+            </button>
+          </div>
+          <p className="pl-1 font-normal mt-2">
+            Don't have an account?
+            <Link to={"/signup"}>
+              <span className="text-[#7BC] pl-2">Sign up</span>
+            </Link>
+          </p>
+        </div>
       </form>
     </AuthUiComponent>
   );

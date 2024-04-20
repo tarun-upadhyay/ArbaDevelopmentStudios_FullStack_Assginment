@@ -94,8 +94,8 @@ const updateImageCategory = async (req, res) => {
 const getAllCategory = async (req, res) => {
   const { name, slug } = req.query;
   let queryObject = {};
-  if (name) queryObject.name = { $regex: name, $options: "i" };
-  if (slug) queryObject.slug = slug;
+  if (name) queryObject.name = new RegExp(name, "i");
+  if (slug) queryObject.slug = new RegExp(slug, "i");
 
   let category = await CategoryModel.find(queryObject);
   return res.status(StatusCodes.ACCEPTED).json(category);

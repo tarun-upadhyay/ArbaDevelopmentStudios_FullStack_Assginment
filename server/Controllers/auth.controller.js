@@ -2,7 +2,13 @@ const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
 const User = require("../Models/User.model");
 const { attachCookiesToResponse } = require("../Utils");
-
+const cloudinary = require("cloudinary").v2;
+const UserModel = require("../Models/User.model");
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret,
+});
 const register = async (req, res) => {
   const { fullName, userName, email, password } = req.body;
   //All validation done by MongoDB Schema with proper message that's not wrote indivaully
@@ -11,10 +17,22 @@ const register = async (req, res) => {
 
   if (emailAlreadyExists)
     throw new CustomError.BadRequestError("Email already exist");
+  let avatar =
+    "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg";
+  const user = await User.create({
+    fullName,
+    userName,
+    email,
+    password,
+    avatar,
+  });
 
-  const user = await User.create({ fullName, userName, email, password });
-
-  const tokenUser = { fullName: user.fullName, userId: user._id };
+  const tokenUser = {
+    fullName: user.fullName,
+    userId: user._id,
+    avatar: user.avatar,
+    email: user.email,
+  };
 
   attachCookiesToResponse({ res, user: tokenUser });
   return res
@@ -23,13 +41,15 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    throw new CustomError.BadRequestError("Please provide email and password");
+  const { userName, password } = req.body;
+  if (!userName || !password) {
+    throw new CustomError.BadRequestError(
+      "Please provide userName and password"
+    );
   }
-
-  const user = await User.findOne({ email });
-
+  console.log(userName);
+  const user = await User.findOne({ userName });
+  console.log(user);
   if (!user) throw new CustomError.UnauthenticatedError("Invalid Credentials");
 
   const isPassword = await user.comparePassword(password);
@@ -37,8 +57,13 @@ const login = async (req, res) => {
   if (!isPassword)
     throw new CustomError.UnauthenticatedError("Invalid credentials");
 
-  const tokenUser = { fullName: user.fullName, userId: user._id };
-
+  const tokenUser = {
+    fullName: user.fullName,
+    userId: user._id,
+    avatar: user.avatar,
+    email: user.email,
+  };
+  console.log(tokenUser);
   attachCookiesToResponse({ res, user: tokenUser });
 
   return res.status(StatusCodes.OK).json({ user: tokenUser });
@@ -72,11 +97,61 @@ const updateProfilePassword = async (req, res) => {
     .status(StatusCodes.OK)
     .json({ msg: "Password updated successfully", user });
 };
+const profile = async (req, res) => {
+  let user = await UserModel.findById(req.user.userId).select("-password");
+  if (!user) throw new CustomError.BadRequestError("user not found");
+  return res.status(StatusCodes.OK).json(user);
+};
+const updateProfileImage = async (req, res) => {
+  if (!req.files.image) {
+    throw new CustomError.BadRequestError("Image is required");
+  }
+
+  let user = await UserModel.findById(req.user.userId);
+
+  if (!user) {
+    throw new CustomError.NotFoundError("User not found");
+  }
+
+  let imageUrl;
+  if (req.files.image) {
+    const cloudinaryResponse = await cloudinary.uploader.upload(
+      req.files.image.tempFilePath,
+      {
+        folder: "avatar_images",
+        use_filename: true,
+      }
+    );
+    imageUrl = cloudinaryResponse.url;
+    // Delete old image if it exists
+    if (user.avatar) {
+      await cloudinary.uploader.destroy(
+        user.avatar.split("/").pop().split(".")[0]
+      );
+    }
+  }
+
+  if (imageUrl) {
+    user.avatar = imageUrl;
+  }
+
+  await user.save();
+  return res.status(StatusCodes.ACCEPTED).json(user);
+};
+
+const logout = async (req, res) => {
+  res.cookie("authToken", "logout", {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.status(200).json({ msg: "User logged out" });
+};
 module.exports = {
   register,
   login,
   updateProfileFullName,
   updateProfilePassword,
+  logout,
+  updateProfileImage,
+  profile,
 };
-
-          
