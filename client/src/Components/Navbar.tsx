@@ -17,7 +17,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   let { cart } = useSelector((store: any) => store.CartReducer);
   const storeContext = useSelector((store: any) => store.AuthReducer);
-  console.log(storeContext.userDetails);
+
   useEffect(() => {
     dispatch<any>(profileInfo());
   }, [dispatch]);

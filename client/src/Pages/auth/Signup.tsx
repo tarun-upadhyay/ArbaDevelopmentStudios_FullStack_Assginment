@@ -196,7 +196,7 @@ const Signup = () => {
               }`}
               disabled={loading}
             >
-              {loading ? "Processing.." : "Login"}
+              {loading ? "Processing.." : "Signup"}
             </button>
           </div>
           <p className="pl-1 font-normal mt-2">

@@ -32,7 +32,7 @@ const Profile = () => {
       fileInputRef.current.click();
     }
   };
-  console.log(fullName);
+  
   useEffect(() => {
     const isAccepted = localStorage.getItem("t&CAccepted");
 

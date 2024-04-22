@@ -55,7 +55,7 @@ const Store = () => {
     price: "",
     image: null,
   });
-  console.log(categoryData[0]);
+
   const [loading, setLoading] = useState(false);
   const {
     isOpen: categoryisOpen,
@@ -76,7 +76,7 @@ const Store = () => {
     fetchData("/api/v1/category", setCategoryData, setLoading);
     fetchData("/api/v1/product", setProductData, setLoading);
   }, []);
-  console.log(showAddcategory);
+  
   async function handleAddCategory(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
