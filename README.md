@@ -57,7 +57,7 @@ client
      - Components
      - Pages
          ---
-client
+server
     - package.json
     - app.js
     - controller
