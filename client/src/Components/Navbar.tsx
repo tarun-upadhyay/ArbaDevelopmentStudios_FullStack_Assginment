@@ -25,7 +25,7 @@ const Navbar = () => {
     <div className="flex px-10 m-5 mb-10 justify-between">
       <Link to={"/"}>
         {" "}
-        <div className="bg-[#1ec3cd] py-4 px-7 text-white font-bold">Logo</div>
+        <div className="bg-[#1ec3cd] py-3 px-6 text-white font-bold">Logo</div>
       </Link>
       <div className="flex gap-6">
         <Link to={"/cart"}>
@@ -48,8 +48,8 @@ const Navbar = () => {
               name={`${storeContext.userDetails.fullName}`}
               src={
                 storeContext.userDetails.avatar
-                  ? `${storeContext.userDetails.avatar}`
-                  : "https://bit.ly/dan-abramov"
+                  && `${storeContext.userDetails.avatar}`
+                  
               }
             />
           </MenuButton>

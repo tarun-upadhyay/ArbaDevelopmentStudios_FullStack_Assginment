@@ -16,12 +16,14 @@ interface CategoryEditButtonProps {
   name: string;
   slug: string;
   image: string;
+  
 }
 const CategoryEditButton: FC<CategoryEditButtonProps> = ({
   id,
   name,
   slug,
   image,
+  
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -55,6 +57,7 @@ const CategoryEditButton: FC<CategoryEditButtonProps> = ({
         setFormData((prevFormData) => ({ ...prevFormData, image: data.image }));
         console.log("File uploaded successfully");
         alert("Updated img succeed");
+        window.location.reload()
       } else {
         alert("Failed to upload file");
         console.error("Failed to upload file");
@@ -87,6 +90,7 @@ const CategoryEditButton: FC<CategoryEditButtonProps> = ({
       );
       if (response.ok) {
         alert("Updated Successfull");
+        window.location.reload()
         onClose();
         console.log("Category name updated successfully");
       } else {

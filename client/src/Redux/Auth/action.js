@@ -39,6 +39,8 @@ export const profileInfo = (params) => async (dispatch) => {
 };
 export const logout = (params) => (dispatch) => {
   dispatch({ type: types.LOGOUT });
+  localStorage.removeItem("t&CAccepted");
+  window.location.reload()
   fetch("/api/v1/auth/logout")
     .then((res) => res.json())
     .catch((err) => new Error(err));

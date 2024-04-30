@@ -46,6 +46,7 @@ const TCModal = () => {
             style={{
               borderRadius: "0",
             }}
+            maxW="xl" 
           >
             <ModalHeader>TERMS & CONDITIONS</ModalHeader>
 

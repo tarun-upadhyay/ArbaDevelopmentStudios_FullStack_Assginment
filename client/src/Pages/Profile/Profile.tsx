@@ -149,14 +149,14 @@ const Profile = () => {
           <img
             src={storeContext.userDetails.avatar}
             alt="avatar"
-            className="h-60 w-60 cursor-pointer"
+            className="h-48 w-64 cursor-pointer"
             onClick={handleFileSelect}
           />
           <h3 className="text-xl font-semibold">
             {" "}
-            Name: {storeContext.userDetails.fullName}
+            {storeContext.userDetails.fullName}
           </h3>
-          <p>Email: {storeContext.userDetails.email}</p>
+          <p> {storeContext.userDetails.email}</p>
           <button
             className="px-8 py-2 bg-[#1ec3cd] text-white mt-1 font-bold"
             onClick={onOpen}

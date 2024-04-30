@@ -3,6 +3,7 @@ import Navbar from "../../Components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../../Components/ProductCard";
 import { addToCart, deleteToCart } from "../../Redux/Cart/action";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,13 @@ const Cart = () => {
               />
             ))}
         </div>
+        {cart.length !== 0 && (
+          <div className="flex justify-end mt-10 mr-10">
+            <button className="flex items-center gap-2 px-8 py-2 bg-[#1ec3cd] text-white mt-1">
+              Checkout{" "}
+            </button>
+          </div>
+        )}
         {cart.length === 0 && (
           <div className="flex justify-center items-center">
             <img

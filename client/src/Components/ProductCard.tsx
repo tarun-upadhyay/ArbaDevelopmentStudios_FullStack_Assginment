@@ -30,16 +30,16 @@ const ProductCard: FC<ProductCardProp> = ({
         {quantity > 0 ? (
           <div className="w-full flex">
             <button
-              className="w-full bg-[#1ec3cd] text-white"
+              className="w-full bg-[#1ec3cd] text-white text-2xl font-extrabold"
               onClick={handleDeleteToCart}
             >
               -
             </button>
-            <button className="w-full bg-[#1ec3cd] text-white">
+            <button className="w-full bg-[#1ec3cd] text-white text-2xl font-bold">
               {quantity}
             </button>
             <button
-              className="w-full bg-[#1ec3cd] text-white"
+              className="w-full bg-[#1ec3cd] text-white text-2xl font-extrabold"
               onClick={handleAddToCart}
             >
               +

@@ -76,7 +76,7 @@ const Store = () => {
     fetchData("/api/v1/category", setCategoryData, setLoading);
     fetchData("/api/v1/product", setProductData, setLoading);
   }, []);
-  
+
   async function handleAddCategory(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -176,8 +176,18 @@ const Store = () => {
         </div>
         <Tabs isFitted variant="unstyled">
           <TabList mb="1rem">
-            <Tab _selected={{ color: "white", bg: "#1ec3cd" }}>Category</Tab>
-            <Tab _selected={{ color: "white", bg: "#1ec3cd" }}>Products</Tab>
+            <Tab
+              _selected={{ color: "white", bg: "#1ec3cd" }}
+              _hover={{ bg: "gray.200" }}
+            >
+              Category
+            </Tab>
+            <Tab
+              _selected={{ color: "white", bg: "#1ec3cd" }}
+              _hover={{ bg: "gray.200" }}
+            >
+              Products
+            </Tab>
           </TabList>
 
           <TabPanels>
@@ -560,7 +570,7 @@ const Store = () => {
                                       method: "DELETE",
                                       headers: {
                                         "Content-Type": "application/json",
-                                        // Add any other headers if needed
+                                       
                                       },
 
                                       body: JSON.stringify({}),
@@ -569,7 +579,7 @@ const Store = () => {
 
                                   if (response.ok) {
                                     console.log("DELETE request successful");
-                                    // Handle success
+                                   
                                     setLoading(false);
                                     fetchData(
                                       "/api/v1/product",
@@ -579,14 +589,14 @@ const Store = () => {
                                   } else {
                                     console.error("Failed to delete resource");
                                     setLoading(false);
-                                    // Handle failure
+                                   
                                   }
                                 } catch (error) {
                                   console.error(
                                     "Error deleting resource:",
                                     error
                                   );
-                                  // Handle error
+                                 
                                 }
                               }}
                             >

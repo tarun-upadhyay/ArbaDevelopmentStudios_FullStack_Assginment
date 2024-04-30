@@ -69,7 +69,7 @@ const ProductEditButton: FC<CategoryEditButtonProps> = ({
         const data = await response.json();
         setFormData((prevFormData) => ({ ...prevFormData, image: data.image }));
         console.log("File uploaded successfully");
-        alert("Updated img succeed");
+        alert("Updated img succeed, Please refresh table");
       } else {
         alert("Failed to upload");
         console.error("Failed to upload file");
@@ -98,7 +98,8 @@ const ProductEditButton: FC<CategoryEditButtonProps> = ({
         },
       });
       if (response.ok) {
-        alert("Updated Successfull");
+        alert("Updated Successfull, Please refresh table");
+
         onClose();
         console.log("Category name updated successfully");
       } else {

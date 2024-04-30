@@ -74,7 +74,11 @@ const CategoryFilter: FC<CategoryFilterProp> = ({ handleFilterCategory }) => {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="green" onClick={handleSearch}>
+            <Button
+              colorScheme="green"
+              onClick={handleSearch}
+              disabled={formData.name.length == 0 && formData.slug.length == 0}
+            >
               Search
             </Button>
           </ModalFooter>

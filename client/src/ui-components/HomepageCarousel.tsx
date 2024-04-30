@@ -34,7 +34,12 @@ export default function HomepageCarousel() {
         showStatus={false}
       >
         {images.map((e, index) => (
-          <img src={e.src} alt={e.alt} className="max-h-[400px]" key={index} />
+          <img
+            src={e.src}
+            alt={e.alt}
+            className="max-h-[400px] mx-24"
+            key={index}
+          />
         ))}
       </Carousel>
     </>

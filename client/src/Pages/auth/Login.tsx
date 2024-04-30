@@ -59,7 +59,7 @@ const Login = () => {
           <div>
             <div className="mt-2 ">
               <input
-                className="flex h-10 w-full outline-none border-b-2 border-[#2ab2ce] bg-transparent text-lg placeholder:text-gray-400   disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-10 w-full outline-none border-b-2 border-[#2ab2ce] bg-transparent text-lg placeholder:text-gray-600   disabled:cursor-not-allowed disabled:opacity-50"
                 type="text"
                 placeholder="Username"
                 name="userName"
@@ -78,7 +78,7 @@ const Login = () => {
             <div className="mt-2">
               <label htmlFor="" className="relative flex">
                 <input
-                  className="flex h-10 w-full outline-none border-b-2 border-[#2ab2ce] bg-transparent text-lg placeholder:text-gray-400   disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-10 w-full outline-none border-b-2 border-[#2ab2ce] bg-transparent text-lg placeholder:text-gray-600   disabled:cursor-not-allowed disabled:opacity-50"
                   type={`${passwordVisible ? "text" : "password"}`}
                   placeholder="Password"
                   name="password"
