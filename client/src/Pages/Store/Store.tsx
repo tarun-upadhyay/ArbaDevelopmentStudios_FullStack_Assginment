@@ -34,8 +34,9 @@ async function fetchData(url: any, setData: any, setLoading: any) {
     const data = await response.json();
     if (!response.ok) {
       setLoading(false);
+      return []
       throw new Error("Something went wrong, Plz try again");
-    } else setData(data);
+    } else  setData((prevData: any) => [ ...data]);
     setLoading(false);
   } catch (error) {
     throw new Error("Something went wrong, Plz try again");
@@ -466,6 +467,7 @@ const Store = () => {
                                       setCategoryData,
                                       setLoading
                                     );
+                                    fetchData("/api/v1/product", setProductData, setLoading);
                                   } else {
                                     console.error("Failed to delete resource");
                                     setLoading(false);
@@ -529,7 +531,7 @@ const Store = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {productData.length > 0 ? (
+                  {productData && productData.length > 0 ? (
                     productData.map((el: any, i) => (
                       <Tr key={i}>
                         <Td>
@@ -556,7 +558,7 @@ const Store = () => {
                               price={el.price}
                               description={el.description}
                               categoryArray={categoryData}
-                              category={el.category._id}
+                              category={el.category._id }
                             />
 
                             <button

@@ -8,7 +8,7 @@ const AllProducts = () => {
     <>
       <Navbar />
       <TCModal />
-      <ProductComp />
+      <ProductComp limit={20} />
     </>
   );
 };

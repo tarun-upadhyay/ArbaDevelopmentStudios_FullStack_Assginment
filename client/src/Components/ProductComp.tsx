@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -14,7 +14,10 @@ interface Product {
   image: string;
   quantity: number;
 }
-const ProductComp = () => {
+interface PRODUCTCOMPINTERFACT {
+  limit: number;
+}
+const ProductComp:FC<PRODUCTCOMPINTERFACT> = ({ limit }) => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<Product[]>([]);
   let { cart } = useSelector((store: any) => store.CartReducer);
@@ -28,7 +31,7 @@ const ProductComp = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch("/api/v1/product");
+        const response = await fetch(`/api/v1/product?limit=${limit}`);
         const data = await response.json();
 
         //Update products array with quantity value
@@ -47,7 +50,7 @@ const ProductComp = () => {
   return (
     <div className="w-[80%] mx-auto my-10">
       <h2 className="font-bold text-xl">Products</h2>
-      <div className="grid grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
         {products.length > 0 &&
           products.map((el, i) => (
             <ProductCard
@@ -61,8 +64,12 @@ const ProductComp = () => {
               handleAddToCart={() => handleAddToCart(el)}
             />
           ))}
+          {
+            products.length === 0 && <div className="bg-yellow-400 text-xl flex justify-center items-center w-full rounded-xl p-2">
+              <h1 className="text-xl leading-8">No product had been stored yet</h1>
+            </div>
+          }
       </div>
-  
     </div>
   );
 };

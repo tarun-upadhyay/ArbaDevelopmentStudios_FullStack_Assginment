@@ -1,5 +1,6 @@
 const cloudinary = require("cloudinary").v2;
 const path = require("path");
+const ProductModel = require("../Models/Product.model");
 const { StatusCodes } = require("http-status-codes");
 const CategoryModel = require("../Models/Category.model");
 const CustomError = require("../errors");
@@ -48,11 +49,14 @@ const createCategory = async (req, res) => {
 const updateNameCategory = async (req, res) => {
   const { id: categoryId } = req.params;
   const { name, slug } = req.body;
-
+  let queryObject = {
+    owner: req.user.userId,
+    _id: categoryId,
+  };
   if (!name || !slug) {
     throw new CustomError.BadRequestError("Name and slug are required");
   }
-  let category = await CategoryModel.findById(categoryId);
+  let category = await CategoryModel.findOne(queryObject);
   console.log(category);
   category.name = name;
   category.slug = slug;
@@ -61,11 +65,16 @@ const updateNameCategory = async (req, res) => {
 };
 const updateImageCategory = async (req, res) => {
   const { id: categoryId } = req.params;
+  let queryObject = {
+    owner: req.user.userId,
+    _id: categoryId,
+  };
+  console.log(queryObject);
   if (!req.files.image) {
     throw new CustomError.BadRequestError("Image is required");
   }
-  let category = await CategoryModel.findById(categoryId);
-
+  let category = await CategoryModel.findOne(queryObject);
+  console.log(category);
   if (!category) {
     throw new CustomError.NotFoundError("Product not found");
   }
@@ -93,7 +102,9 @@ const updateImageCategory = async (req, res) => {
 
 const getAllCategory = async (req, res) => {
   const { name, slug } = req.query;
-  let queryObject = {};
+  let queryObject = {
+    owner: req.user.userId,
+  };
   if (name) queryObject.name = new RegExp(name, "i");
   if (slug) queryObject.slug = new RegExp(slug, "i");
 
@@ -102,8 +113,11 @@ const getAllCategory = async (req, res) => {
 };
 const getSingleCategory = async (req, res) => {
   const { id: categoryId } = req.params;
-
-  let category = await CategoryModel.findById(categoryId);
+  let queryObject = {
+    owner: req.user.userId,
+    _id: categoryId,
+  };
+  let category = await CategoryModel.findOne(queryObject);
   if (!category)
     throw new CustomError.NotFoundError(`No category with id: ${categoryId}`);
 
@@ -112,8 +126,16 @@ const getSingleCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   const { id: categoryId } = req.params;
-  let category = await CategoryModel.findByIdAndDelete(categoryId);
-
+  let queryObject = {
+    owner: req.user.userId,
+    _id: categoryId,
+  };
+  let category = await CategoryModel.findOneAndDelete(queryObject);
+  let deleteProduct = await ProductModel.deleteMany({
+    category: categoryId,
+    owner: req.user.userId,
+  });
+  console.log(deleteProduct);
   if (!category)
     throw new CustomError.NotFoundError(`No category with id: ${categoryId}`);
 

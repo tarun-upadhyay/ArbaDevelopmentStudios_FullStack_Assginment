@@ -40,9 +40,11 @@ export const profileInfo = (params) => async (dispatch) => {
 export const logout = (params) => (dispatch) => {
   dispatch({ type: types.LOGOUT });
   localStorage.removeItem("t&CAccepted");
-  window.location.reload()
+  localStorage.removeItem("cart");
   fetch("/api/v1/auth/logout")
-    .then((res) => res.json())
+    .then((res) => res.json()).then(()=>  {
+      return window.location.reload()
+    })
     .catch((err) => new Error(err));
 };
 export const handleTc = (params) => (dispatch) => dispatch({ type: types.TC });

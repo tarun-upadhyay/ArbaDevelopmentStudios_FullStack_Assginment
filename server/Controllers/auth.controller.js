@@ -4,6 +4,12 @@ const User = require("../Models/User.model");
 const { attachCookiesToResponse } = require("../Utils");
 const cloudinary = require("cloudinary").v2;
 const UserModel = require("../Models/User.model");
+const ProductModel = require("../Models/Product.model");
+const CategoryModel = require("../Models/Category.model");
+const {
+  createDummyCategory,
+  attachDummyDataForAllNewUser,
+} = require("../Utils/attachDummyData");
 cloudinary.config({
   cloud_name: process.env.cloud_name,
   api_key: process.env.api_key,
@@ -27,6 +33,13 @@ const register = async (req, res) => {
     avatar,
   });
 
+  const addNewCategory = await CategoryModel.insertMany(
+    createDummyCategory(user._id)
+  );
+
+  const addNewProduct = await ProductModel.insertMany(
+    attachDummyDataForAllNewUser(user._id, addNewCategory)
+  );
   const tokenUser = {
     fullName: user.fullName,
     userId: user._id,

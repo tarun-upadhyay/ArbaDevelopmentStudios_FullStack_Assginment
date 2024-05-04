@@ -104,21 +104,26 @@ const updateImageProduct = async (req, res) => {
 };
 
 const getProducts = async (req, res) => {
-  const { title, price, category } = req.query;
-  let queryObject = {};
+  const { title, price, category, limit } = req.query;
+  console.log(req.user.userId);
+  let queryObject = {
+    owner: req.user.userId,
+  };
   if (title) queryObject.title = new RegExp(title, "i");
   if (category) queryObject.category = new RegExp(category, "i");
 
   let sortOption = {};
   if (price === "asc") {
-    sortOption.price = 1; // Ascending order
+    sortOption.price = 1;
   } else if (price === "desc") {
-    sortOption.price = -1; // Descending order
+    sortOption.price = -1;
   }
 
   let products = await ProductModel.find(queryObject)
     .populate("category", "name")
-    .sort(sortOption);
+    .sort(sortOption)
+    .limit(limit);
+
   return res.status(StatusCodes.ACCEPTED).json(products);
 };
 const deleteProduct = async (req, res) => {
