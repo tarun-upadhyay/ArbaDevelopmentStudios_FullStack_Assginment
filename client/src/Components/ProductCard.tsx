@@ -25,13 +25,13 @@ const ProductCard: FC<ProductCardProp> = ({
     return text.substring(0, maxLength - 3) + "...";
   }
   return (
-    <div className="relative pb-24 p-5">
+    <div className="relative pb-24 md:p-5 shadow-sm mb-24">
       <div>
-        <img src={image} alt="" className="h-40 w-96" />
+        <img src={image} alt="" className="h-40 md:w-80 w-64 lg:w-96" />
       </div>
-      <div className="px-5 py-3 absolute top-40 bg-white w-[75%] left-9 font-bold shadow-2xl">
-        <h1>{lengthShorten(title, 28)}</h1>
-        <p className="font-semibold">{lengthShorten(description, 25)}</p>
+      <div className="lg:px-5 px-3  py-3 absolute md:top-40 bg-white w-[75%] md:left-7 2xl:left-10 xl:left-8 left-5 top-36 font-bold shadow-2xl">
+        <h1>{lengthShorten(title, 20)}</h1>
+        <p className="font-semibold">{lengthShorten(description, 20)}</p>
         <p className="text-[#1ec3cd]">Rs.{price}</p>
         {quantity > 0 ? (
           <div className="w-full flex">

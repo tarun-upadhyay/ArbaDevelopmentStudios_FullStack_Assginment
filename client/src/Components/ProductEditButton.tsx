@@ -117,7 +117,7 @@ const ProductEditButton: FC<CategoryEditButtonProps> = ({
   return (
     <>
       <button className="font-bold" onClick={onOpen}>
-        Edit |
+        Edit
       </button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

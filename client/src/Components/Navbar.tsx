@@ -22,7 +22,7 @@ const Navbar = () => {
     dispatch<any>(profileInfo());
   }, [dispatch]);
   return (
-    <div className="flex px-10 m-5 mb-10 justify-between">
+    <div className="flex md:px-10 m-5 mb-10 justify-between">
       <Link to={"/"}>
         {" "}
         <div className="bg-[#1ec3cd] py-3 px-6 text-white font-bold">Logo</div>

@@ -171,7 +171,7 @@ const Store = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-[70%] mx-auto">
+      <div className="w-[97%] md:w-[94%] lg:w-[70%] mx-auto">
         <div className="relative top-14 z-50">
           {loading ? <LoadingIndicator /> : null}
         </div>
@@ -439,7 +439,7 @@ const Store = () => {
                               slug={el.slug}
                               image={el.image}
                             />
-
+|
                             <button
                               className="font-bold"
                               onClick={async () => {
@@ -560,7 +560,7 @@ const Store = () => {
                               categoryArray={categoryData}
                               category={el.category._id }
                             />
-
+|
                             <button
                               className="font-bold"
                               onClick={async () => {

@@ -20,9 +20,9 @@ const Cart = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div className="w-[80%] mx-auto my-10">
+      <div className="w-[90%] md:w-[87%] lg:w-[84%] mx-auto my-10">
         <h2 className="font-bold text-xl">My cart</h2>
-        <div className="grid grid-cols-4 gap-6 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-6 md:gap-3 gap-1 gap-x-6 mt-4">
           {cart.length > 0 &&
             cart.map((el: any) => (
               <ProductCard

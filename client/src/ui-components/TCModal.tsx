@@ -46,29 +46,33 @@ const TCModal = () => {
             style={{
               borderRadius: "0",
             }}
-            maxW="xl" 
+            maxW="xl"
           >
             <ModalHeader>TERMS & CONDITIONS</ModalHeader>
 
             <ModalBody>
-              <p className="px-5 font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed rem
-                optio, fuga eaque dolore alias pariatur doloribus adipisci,
-                eveniet illum, consequatur nostrum neque repellendus commodi
-                incidunt porro esse itaque sint magnam magni deleniti reiciendis
-                sunt?
+              <p className="md:px-5 font-bold">
+                When a user first signs up, we create 7-8 dummy categories and
+                7-8 dummy products for a better user experience. This dummy data
+                can be deleted by the user as needed.
               </p>
               <br />
-              <p className="px-5 font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed rem
-                optio, fuga eaque doendus commodi incidunt porro esse itaque
-                sint magnam magni deleniti reiciendis sunt?
+              <p className="md:px-5 font-bold">
+                When a user first signs up, we create 7-8 dummy categories and
+                7-8 dummy products for a better user experience. This dummy data
+                can be deleted by the user as needed.
               </p>
               <br />
-              <p className="px-5 font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed rem
-                optio, fugepellendus commodi incidunt porro esse itaque sint
-                magnam magni deleniti reiciendis sunt?
+              <p className="md:px-5 font-bold">
+                When a user first signs up, we create 7-8 dummy categories and
+                7-8 dummy products for a better user experience. This dummy data
+                can be deleted by the user as needed.
+              </p>
+              <br />
+              <p className="md:px-5 font-bold">
+                When a user first signs up, we create 7-8 dummy categories and
+                7-8 dummy products for a better user experience. This dummy data
+                can be deleted by the user as needed.
               </p>
               <br />
             </ModalBody>

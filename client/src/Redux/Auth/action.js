@@ -12,11 +12,16 @@ export const login = (params) => async (dispatch) => {
     });
 
     const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.msg || "Login failed"); // Throw an error with the message from the API response or a default message
+    }
+
     dispatch({ type: types.LOGIN_SUCCESS, payload: data.user });
     return data.user;
   } catch (err) {
     dispatch({ type: types.LOGIN_FAILURE });
-    return err;
+    throw err; // Re-throw the error to be caught by the caller
   }
 };
 
@@ -42,8 +47,9 @@ export const logout = (params) => (dispatch) => {
   localStorage.removeItem("t&CAccepted");
   localStorage.removeItem("cart");
   fetch("/api/v1/auth/logout")
-    .then((res) => res.json()).then(()=>  {
-      return window.location.reload()
+    .then((res) => res.json())
+    .then(() => {
+      return window.location.reload();
     })
     .catch((err) => new Error(err));
 };

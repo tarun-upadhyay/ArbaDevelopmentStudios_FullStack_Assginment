@@ -4,23 +4,23 @@ import { Carousel } from "react-responsive-carousel";
 export default function HomepageCarousel() {
   const images = [
     {
-      src: `https://images.pexels.com/photos/21430836/pexels-photo-21430836/free-photo-of-vintage-camera-praktica-mtl5-hanging-on-the-strap-of-the-case.jpeg?auto=compress&cs=tinysrgb&h=750&dpr=1`,
+      src: `https://cdn.pixabay.com/photo/2016/03/02/20/13/grocery-1232944_1280.jpg`,
       alt: "altFirst",
     },
     {
-      src: `https://images.pexels.com/photos/20780434/pexels-photo-20780434/free-photo-of-a-blue-house-with-pink-blossoms-on-the-roof.jpeg?auto=compress&cs=tinysrgb&h=750&dpr=1`,
+      src: `https://www.hdcarwallpapers.com/walls/super_sports_cars-HD.jpg`,
       alt: "altSecond ",
     },
     {
-      src: `https://images.pexels.com/photos/13407814/pexels-photo-13407814.jpeg?auto=compress&cs=tinysrgb&h=750&dpr=1`,
+      src: `https://img.freepik.com/free-vector/flat-diwali-sale-with-candle_52683-27177.jpg`,
       alt: "altThird",
     },
     {
-      src: `https://images.pexels.com/photos/21430836/pexels-photo-21430836/free-photo-of-vintage-camera-praktica-mtl5-hanging-on-the-strap-of-the-case.jpeg?auto=compress&cs=tinysrgb&h=750&dpr=1`,
+      src: `https://img.freepik.com/free-photo/smiley-woman-posing-sale-shopping-bags_23-2148684550.jpg`,
       alt: "altFour",
     },
     {
-      src: `https://images.pexels.com/photos/18873395/pexels-photo-18873395/free-photo-of-tea-coffee-and-a-vase-with-blooming-flowers-on-a-table-standing-by-a-window.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
+      src: `https://images8.alphacoders.com/133/1337841.png`,
       alt: "altThird",
     },
   ];
@@ -34,12 +34,14 @@ export default function HomepageCarousel() {
         showStatus={false}
       >
         {images.map((e, index) => (
-          <img
-            src={e.src}
-            alt={e.alt}
-            className="max-h-[400px] mx-24"
-            key={index}
-          />
+          <div className="px-2 md:px-6">
+            <img
+              src={e.src}
+              alt={e.alt}
+              className="h-[200px] md:h-[300px] lg:h-[300px] mx-24"
+              key={index}
+            />
+          </div>
         ))}
       </Carousel>
     </>

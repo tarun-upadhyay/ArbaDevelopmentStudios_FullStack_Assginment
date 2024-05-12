@@ -17,6 +17,7 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { Button, IconButton } from "@material-tailwind/react";
+import { ColorRing } from "react-loader-spinner";
 const Profile = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,7 +33,7 @@ const Profile = () => {
       fileInputRef.current.click();
     }
   };
-  
+
   useEffect(() => {
     const isAccepted = localStorage.getItem("t&CAccepted");
 
@@ -131,12 +132,30 @@ const Profile = () => {
     <div>
       <Navbar />
 
-      <div className="w-[40%] mx-auto ">
+      <div className="md:w-[50%] w-[90%] lg:w-[40%] mx-auto ">
         {!storeContext.isTermsAccepted && <TCModal></TCModal>}
         <div className="flex flex-col items-center justify-center">
           {loading && (
             <div className="relative bottom-56">
-              <LoadingIndicator />
+              <div className="relative flex justify-center">
+                <div className="absolute top-60">
+                  <ColorRing
+                    visible={true}
+                    height="100"
+                    width="100"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={[
+                      "#e15b64",
+                      "#f47e60",
+                      "#f8b26a",
+                      "#abbd81",
+                      "#849b87",
+                    ]}
+                  />
+                </div>
+              </div>
             </div>
           )}
           <input
@@ -168,7 +187,7 @@ const Profile = () => {
             <ModalContent>
               <ModalHeader>Update Profile</ModalHeader>
               <ModalCloseButton />
-              <ModalBody>
+              <ModalBody py={5}>
                 <label htmlFor="">
                   Full Name
                   <input
@@ -190,7 +209,7 @@ const Profile = () => {
           </Modal>
         </div>
         <hr className="border-2 font-bold mt-6 text-black" />
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center sm:gap-4 sm:flex-row flex-col">
           <button
             className="px-8 py-2 bg-[#1ec3cd] text-white mt-5 font-bold"
             onClick={() => {
@@ -217,7 +236,7 @@ const Profile = () => {
             <ModalHeader>Update Profile</ModalHeader>
             <ModalCloseButton />
 
-            <ModalBody>
+            <ModalBody py={5}>
               <FormControl mt={4}>
                 <FormLabel>New Password</FormLabel>
                 <input
