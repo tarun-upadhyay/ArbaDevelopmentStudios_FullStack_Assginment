@@ -10,6 +10,8 @@ const helmet = require("helmet");
 const authRouter = require("./Routes/authRoute");
 const categoryRouter = require("./Routes/categoryRoute");
 const productRouter = require("./Routes/productRoute");
+const googleAuthRouter = require("./Routes/userRoute");
+const session = require('express-session');
 
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
@@ -18,6 +20,13 @@ const { StatusCodes } = require("http-status-codes");
 const { CustomAPIError } = require("./errors");
 
 const app = express();
+
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET
+}));
+
 
 app.use(helmet());
 app.options("*", cors());
@@ -29,7 +38,8 @@ app.use(morgan("tiny"));
 
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  console.log(req.user, "udsuf");
   return res.send("<h2>E commerce API</h2>");
 });
 
@@ -53,6 +63,7 @@ app.get("/session", (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productRouter);
+app.use("/auth", googleAuthRouter);
 
 app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);

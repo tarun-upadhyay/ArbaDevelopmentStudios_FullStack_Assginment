@@ -6,7 +6,7 @@ function attachDummyDataForAllNewUser(userId, categoryId) {
       price: 5000,
       category: categoryId,
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714768949/product_images/tmp-4-1714768947634_gtgp3x.jpg",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1714772033/category_images/tmp-2-1714772032125_tbvy0w.jpg",
       owner: userId,
       public_id: "product_images/tmp-4-1714768947634_gtgp3x",
       __v: 0,
@@ -17,7 +17,7 @@ function attachDummyDataForAllNewUser(userId, categoryId) {
       price: 600,
       category: categoryId,
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714769199/product_images/tmp-3-1714769197249_o2xnh1.jpg",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1713649559/category_images/tmp-3-1713649557924_xjvcds.jpg",
       owner: userId,
       public_id: "product_images/tmp-3-1714769197249_o2xnh1",
       __v: 0,
@@ -34,12 +34,12 @@ function attachDummyDataForAllNewUser(userId, categoryId) {
       __v: 0,
     },
     {
-      title: "Green Apples",
-      description: "A Green high quality apples",
+      title: "Cars",
+      description: "A high speed car",
       price: 900,
       category: categoryId,
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714769259/product_images/tmp-4-1714769257429_fwhamc.jpg",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1714778165/category_images/tmp-5-1714778164668_fbt9k9.webp",
       owner: userId,
       public_id: "product_images/tmp-4-1714769257429_fwhamc",
       __v: 0,
@@ -57,12 +57,12 @@ function attachDummyDataForAllNewUser(userId, categoryId) {
     },
 
     {
-      title: "Black Cycle",
-      description: "Fancy looking cycle",
+      title: "EV",
+      description: "EV",
       price: 125991,
       category: categoryId,
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714769642/product_images/tmp-10-1714769641087_wqdqla.jpg",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1713620953/category_images/tmp-1-1713620950413_wdpzzv.jpg",
       owner: userId,
       public_id: "product_images/tmp-10-1714769641087_wqdqla",
       __v: 0,
@@ -102,7 +102,7 @@ function createDummyCategory(ownerId) {
       name: "Fitness",
       slug: "Exercise",
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714768934/category_images/tmp-3-1714768932790_fjvcqx.jpg",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1713644106/category_images/tmp-34-1713644103484_gd7q1p.jpg",
       owner: ownerId,
       public_id: "category_images/tmp-3-1714768932790_fjvcqx",
       createdAt: "2024-05-03T20:42:15.695Z",
@@ -110,10 +110,10 @@ function createDummyCategory(ownerId) {
       __v: 0,
     },
     {
-      name: "Papaya",
-      slug: "Fruits",
+      name: "Vehicle",
+      slug: "Vehicle",
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714769111/category_images/tmp-1-1714769109207_vfpwh2.jpg",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1714778165/category_images/tmp-5-1714778164668_fbt9k9.webp",
       owner: ownerId,
       public_id: "category_images/tmp-1-1714769109207_vfpwh2",
       createdAt: "2024-05-03T20:45:11.780Z",
@@ -124,7 +124,7 @@ function createDummyCategory(ownerId) {
       name: "Apples",
       slug: "Fruits",
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714769151/category_images/tmp-2-1714769149581_bfk63p.jpg",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1713649559/category_images/tmp-3-1713649557924_xjvcds.jpg",
       owner: ownerId,
       public_id: "category_images/tmp-2-1714769149581_bfk63p",
       createdAt: "2024-05-03T20:45:52.443Z",
@@ -132,10 +132,10 @@ function createDummyCategory(ownerId) {
       __v: 0,
     },
     {
-      name: "Cars",
-      slug: "car",
+      name: "Diet",
+      slug: "Diet",
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714769443/category_images/tmp-5-1714769442332_fsh5ao.webp",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1714778177/category_images/tmp-6-1714778176035_yzahmm.jpg",
       owner: ownerId,
       public_id: "category_images/tmp-5-1714769442332_fsh5ao",
       createdAt: "2024-05-03T20:50:43.851Z",
@@ -143,10 +143,10 @@ function createDummyCategory(ownerId) {
       __v: 0,
     },
     {
-      name: "Cycle",
-      slug: "Paddle",
+      name: "EV",
+      slug: "EV",
       image:
-        "http://res.cloudinary.com/de4jpzltu/image/upload/v1714772268/category_images/tmp-1-1714772267465_x76iii.jpg",
+        "https://res.cloudinary.com/de4jpzltu/image/upload/v1713620953/category_images/tmp-1-1713620950413_wdpzzv.jpg",
       owner: ownerId,
       public_id: "category_images/tmp-1-1714772267465_x76iii",
       createdAt: "2024-05-03T21:37:48.977Z",
