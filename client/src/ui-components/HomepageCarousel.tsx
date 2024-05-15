@@ -4,7 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 export default function HomepageCarousel() {
   const images = [
     {
-      src: `https://cdn.pixabay.com/photo/2016/03/02/20/13/grocery-1232944_1280.jpg`,
+      src: `https://images.unsplash.com/photo-1607082350899-7e105aa886ae?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FsZXxlbnwwfHwwfHx8MA%3D%3D`,
       alt: "altFirst",
     },
     {
@@ -20,7 +20,7 @@ export default function HomepageCarousel() {
       alt: "altFour",
     },
     {
-      src: `https://images8.alphacoders.com/133/1337841.png`,
+      src: `https://e0.pxfuel.com/wallpapers/796/13/desktop-wallpaper-myntra-to-change-logo-following-complaint-calling-it-offensive-towards-women.jpg`,
       alt: "altThird",
     },
   ];
@@ -34,11 +34,11 @@ export default function HomepageCarousel() {
         showStatus={false}
       >
         {images.map((e, index) => (
-          <div className="px-2 md:px-6">
+          <div className="px-2 md:px-6" key={index}>
             <img
               src={e.src}
               alt={e.alt}
-              className="h-[200px] md:h-[300px] lg:h-[300px] mx-24"
+              className="h-[200px] md:h-[400px] lg:h-[500px] mx-24"
               key={index}
             />
           </div>
